@@ -1,0 +1,396 @@
+/* --------------------------------------------------
+  Base Styles
+-------------------------------------------------- */
+body {
+  margin: 0;
+  font-family: 'Georgia', serif;
+  background-color: #fff4f4;
+  color: #5e4b48;
+  line-height: 1.6;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+body.loaded {
+  opacity: 1;
+}
+
+.wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+h1 {
+  text-align: center;
+  color: #d48fa0;
+  margin-bottom: 3rem;
+  font-size: 2.5rem;
+}
+
+.section-title {
+  text-align: left;
+  font-style: italic;
+  text-decoration: underline;
+  color: #d48fa0;
+  font-size: 2rem;
+}
+
+/* --------------------------------------------------
+  Preloader Styles
+-------------------------------------------------- */
+#preloader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: #fff4f4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  flex-direction: column;
+}
+
+.preloader-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+}
+
+.preloader-inner img {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.loading-bar {
+  position: relative;
+  width: 100%;
+  height: 20px;
+  background-color: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.loading-fill {
+  position: absolute;
+  height: 100%;
+  background-color: hotpink;
+  animation: fillBar 4s linear forwards;
+  z-index: 0;
+}
+
+.heart {
+  position: absolute;
+  top: -10px;
+  left: 0;
+  font-size: 20px;
+  animation: moveHeart 4s linear forwards;
+}
+
+@keyframes moveHeart {
+  from { left: 0%; }
+  to { left: 100%; }
+}
+
+@keyframes fillBar {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* --------------------------------------------------
+  Section Layouts (Desktop)
+-------------------------------------------------- */
+.section {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 4rem;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 1s ease;
+}
+
+.section.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.section.even {
+  flex-direction: row;
+}
+
+.section.odd {
+  flex-direction: row-reverse;
+}
+
+/* --------------------------------------------------
+  Media Elements (Desktop)
+-------------------------------------------------- */
+.image,
+.gif {
+  width: 300px;
+  height: 300px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  flex-shrink: 0;
+}
+
+.image_2{
+  width: 30%;
+  height: auto;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  flex-shrink: 0;
+}
+
+.vid {
+  width: 400px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  flex-shrink: 0;
+}
+
+/* Make cake video fit beautifully across screens */
+.cake-video {
+  justify-content: center;  /* center horizontally */
+  flex-direction: column;   /* ensures it's vertical on all screen sizes */
+  padding: 2rem 0;
+}
+
+.cake_vid {
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.text {
+  flex: 1;
+  font-size: 1.2rem;
+  background-color: #fffafa;
+  padding: 1.5rem;
+  border-radius: 15px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* --------------------------------------------------
+  Buttons
+-------------------------------------------------- */
+.pretty-button {
+  font-family: 'Georgia', serif;
+  background: #fff4f4;
+  color: #d48fa0;
+  font-size: 1.2rem;
+  border: 2px solid #d48fa0;
+  border-radius: 12px;
+  padding: 0.5rem 1.5rem;
+  margin-left: 1.5rem;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.18s, color 0.18s;
+}
+
+.pretty-button:hover {
+  background: #d48fa0;
+  color: #fff;
+}
+
+/* --------------------------------------------------
+  Fade-In Animation
+-------------------------------------------------- */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 1s ease;
+}
+
+.fade-in.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --------------------------------------------------
+  Petal Animation
+-------------------------------------------------- */
+#petal-container {
+  position: fixed;
+  pointer-events: none;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: 10;
+  overflow: visible;
+}
+
+.petal {
+  position: absolute;
+  top: -40px;
+  width: 32px;
+  height: 32px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.8;
+  pointer-events: none;
+  z-index: 20;
+  left: calc(50% + var(--drift, 0));
+  animation-name: fall, sway;
+  animation-timing-function: linear, ease-in-out;
+  animation-iteration-count: 1, infinite;
+  animation-delay: var(--delay, 0s), 0s;
+}
+
+@keyframes fall {
+  0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 1; }
+  30% { transform: translateY(30vh) translateX(-20px) rotate(15deg); }
+  60% { transform: translateY(60vh) translateX(20px) rotate(-10deg); }
+  90% { transform: translateY(90vh) translateX(-30px) rotate(25deg); opacity: 0.8; }
+  100% { transform: translateY(100vh) translateX(0px) rotate(40deg); opacity: 0; }
+}
+
+/* --------------------------------------------------
+  Responsive Layout (Mobile View ≤700px)
+-------------------------------------------------- */
+@media (max-width: 768px) {
+  .section {
+    flex-direction: column !important;
+    text-align: center;
+    align-items: center;
+  }
+
+  .gif,
+  .image,
+  .vid {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .image_2 {
+    width: 90%;               /* Added: makes image visibly larger */
+    max-height: 400px;        /* Added: for portrait scaling */
+    object-fit: cover;        /* Added: clean scaling */
+    display: block;
+    margin: 0 auto;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .text {
+    width: 90%;
+    margin-top: 1rem;
+    text-align: center;
+  }
+}
+
+
+
+/* --------------------------------------------------
+  us 
+-------------------------------------------------- */
+/* === Universal Grid Container === */
+.image-grid {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  padding: 0 1rem;
+  justify-items: center;         /* Center content inside grid cells */
+}
+
+/* === Grid for Moments Section (5 images) === */
+/* Use a custom class to differentiate if needed */
+.image-grid.five-images {
+  grid-template-columns: repeat(3, 1fr);  /* Default: 3 columns */
+  max-width: 1000px;
+  margin: 2rem auto;
+}
+
+/* === General Image Grid (like gallery with 12 images) === */
+.image-grid.twelve-images {
+  grid-template-columns: repeat(2, 1fr);  /* Default: 4 columns for desktop */
+  max-width: 1200px;
+  margin: 2rem auto;
+}
+
+/* === Responsive Layouts === */
+@media (max-width: 767px) {
+  .image-grid.five-images {
+    grid-template-columns: 1fr; /* Mobile: 1 image per row */
+  }
+
+  .image-grid.twelve-images {
+    grid-template-columns: repeat(1, 1fr); /* Mobile: 2 images per row */
+  }
+}
+
+/* === Shared Image Styling === */
+.image-grid img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.image-grid img:hover {
+  transform: scale(1.03);
+}
+
+
+/* Wrapper with fixed aspect ratio (e.g., 4:5 or square) */
+.img-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5; /* Adjust to 1 / 1 for square or 3 / 4 for portrait */
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Image fits nicely inside wrapper */
+.img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+
+.img-wrapper_2 {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1; /* Adjust to 1 / 1 for square or 3 / 4 for portrait */
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Image fits nicely inside wrapper */
+.img-wrapper_2 img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+
+/* --------------------------------------------------
+  spans
+-------------------------------------------------- */
+
+.emoji{
+  font-style: normal;
+  text-decoration: none;
+}
